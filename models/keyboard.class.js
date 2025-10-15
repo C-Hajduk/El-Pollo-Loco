@@ -3,6 +3,6 @@ class Keyboard {
   LEFT = false;
   UP = false;
   DOWN = false;
-  space = false;
+  SPACE = false;
   constructor() {}
 }
