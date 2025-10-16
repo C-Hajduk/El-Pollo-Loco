@@ -1,4 +1,4 @@
-class Character extends movableObject {
+class Character extends MovableObject {
   y = 80;
   height = 250;
   width = 125;
@@ -82,7 +82,7 @@ class Character extends movableObject {
           this.playAnimation(this.IMAGES_WALKING);
         }
       }
-    }, 100);
+    }, 120);
   }
 
   jump() {
