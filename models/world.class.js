@@ -5,7 +5,9 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
-  statusBar = new StatusBar();
+  healthBar = new StatusBar('health', -10);
+  bottleBar = new StatusBar('bottle', 40);
+  coinBar = new StatusBar('coin', 90);
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -37,9 +39,11 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
+      // Check for collision with enemies
       if (this.character.isColliding(enemy)) {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+        // Check for collision with character
+        this.character.hit(); // Character gets hit
+        this.healthBar.setPercentage(this.character.energy); // Update health bar
         console.log('Collision with Character, enemy', this.character.energy);
       }
     });
@@ -51,9 +55,15 @@ class World {
     this.ctx.translate(this.camera_x, 0);
     this.addObjetcsToMap(this.level.backgroundObjects);
 
-    this.ctx.translate(-this.camera_x, 0);
     // ------------ Space for fixed Object ---------------
-    this.addToMap(this.statusBar);
+    this.ctx.translate(-this.camera_x, 0);
+
+    // ---------- Statusbars (fixe Positionen) ----------
+    this.addToMap(this.healthBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.coinBar);
+
+    // ---------- Rest ----------
     this.ctx.translate(this.camera_x, 0);
 
     this.addToMap(this.character);

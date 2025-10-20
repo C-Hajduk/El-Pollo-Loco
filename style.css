@@ -1,3 +1,8 @@
+@font-face {
+  font-family: AguDisplay;
+  src: url(./fonts/AguDisplay-Regular-VariableFont_MORF.ttf);
+}
+
 body {
   display: flex;
   flex-direction: column;
