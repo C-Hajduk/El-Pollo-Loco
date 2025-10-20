@@ -9,6 +9,11 @@ class ThrowableObject extends MovableObject {
   }
 
   trow() {
+    // ist die bottlebar = 20%
+    // dann wirf eine bottle mit der Taste D
+    // dann soll die Flasche nach vorne geworfen werden
+    // aktuallisiere die Flaschenanzeige
+
     this.speedY = 30;
     this.applyGravity();
     setInterval(() => {

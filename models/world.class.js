@@ -9,6 +9,8 @@ class World {
   bottleBar = new StatusBar('bottle', 40);
   coinBar = new StatusBar('coin', 90);
   throwableObjects = [];
+  collectedCoins = 0;
+  collectedBottles = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -17,6 +19,9 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.healthBar.setPercentage(100);
+    this.bottleBar.setPercentage(0);
+    this.coinBar.setPercentage(0);
   }
 
   setWorld() {
@@ -26,7 +31,7 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
-    }, 500);
+    }, 200);
 
     setInterval(() => {
       this.checkThrowObjects();
@@ -47,9 +52,41 @@ class World {
         // Check for collision with character
         this.character.hit(); // Character gets hit
         this.healthBar.setPercentage(this.character.energy); // Update health bar
-        console.log('Collision with Character, enemy', this.character.energy);
+        //console.log('Collision with Character, enemy', this.character.energy);
       }
     });
+    // Check for collision with coins
+    this.level.coins.forEach((coin, index) => {
+      // index is needed to remove coin from array
+      if (this.character.isColliding(coin)) {
+        // Check for collision with character
+        this.level.coins.splice(index, 1); // Remove coin from level
+        this.pickCoins(); // Increase collected coins
+      }
+    });
+    this.level.bottles.forEach((bottle, index) => {
+      // index is needed to remove bottle from array
+      if (this.character.isColliding(bottle)) {
+        // Check for collision with character
+        this.level.bottles.splice(index, 1); // Remove bottle from level
+        this.pickBottles(); // Increase collected bottles
+      }
+    });
+  }
+
+  pickCoins() {
+    // Increase collected coins
+    this.collectedCoins++; // Increase collected coins
+    let maxCoins = 5; // Total number of coins in level
+    let percentage = (this.collectedCoins / maxCoins) * 100; // Calculate percentage
+    this.coinBar.setPercentage(percentage); // Update coin bar
+  }
+
+  pickBottles() {
+    this.collectedBottles++;
+    let maxBottles = 5;
+    let percentage = (this.collectedBottles / maxBottles) * 100;
+    this.bottleBar.setPercentage(percentage); // Update bottle bar
   }
 
   draw() {
