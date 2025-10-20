@@ -26,8 +26,11 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
-      this.checkThrowObjects();
     }, 500);
+
+    setInterval(() => {
+      this.checkThrowObjects();
+    }, 150);
   }
 
   checkThrowObjects() {
@@ -54,6 +57,12 @@ class World {
 
     this.ctx.translate(this.camera_x, 0);
     this.addObjetcsToMap(this.level.backgroundObjects);
+    this.addObjetcsToMap(this.level.clouds);
+    this.addObjetcsToMap(this.level.enemies);
+    this.addObjetcsToMap(this.level.bottles);
+    this.addObjetcsToMap(this.throwableObjects);
+    this.addObjetcsToMap(this.level.coins);
+    this.addToMap(this.character);
 
     // ------------ Space for fixed Object ---------------
     this.ctx.translate(-this.camera_x, 0);
@@ -62,16 +71,6 @@ class World {
     this.addToMap(this.healthBar);
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinBar);
-
-    // ---------- Rest ----------
-    this.ctx.translate(this.camera_x, 0);
-
-    this.addToMap(this.character);
-    this.addObjetcsToMap(this.level.clouds);
-    this.addObjetcsToMap(this.level.enemies);
-    this.addObjetcsToMap(this.throwableObjects);
-
-    this.ctx.translate(-this.camera_x, 0);
 
     // Draw() wird immer wieder aufgerufen
     let self = this;
