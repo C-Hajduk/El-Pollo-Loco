@@ -5,8 +5,11 @@ let keyboard = new Keyboard();
 function init() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
+  SoundHub = new SoundHub();
+}
 
-  //console.log("my Character is", world.character);
+function toggleAudio() {
+  SoundHub.toggleAudio();
 }
 
 window.addEventListener('keydown', (event) => {

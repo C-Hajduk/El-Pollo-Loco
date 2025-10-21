@@ -36,12 +36,32 @@ class World {
     setInterval(() => {
       this.checkThrowObjects();
     }, 150);
+
+    setInterval(() => {
+      this.updateEnemies();
+    }, 1000 / 60);
+  }
+
+  updateEnemies() {
+    this.level.enemies.forEach((enemy) => {
+      if (enemy instanceof Endboss) {
+        enemy.update(this.character);
+      }
+    });
   }
 
   checkThrowObjects() {
     if (this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-      this.throwableObjects.push(bottle);
+      let bottlePercentage = (this.collectedBottles / 5) * 100;
+      if (bottlePercentage >= 20) {
+        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); // Create new bottle
+        this.throwableObjects.push(bottle); // Add bottle to array
+
+        this.collectedBottles--;
+
+        let newPercentage = (this.collectedBottles / 5) * 100;
+        this.bottleBar.setPercentage(newPercentage);
+      }
     }
   }
 

@@ -25,20 +25,23 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(mo) {
+    // mo = movable object
     return (
-      this.x + this.width > mo.x &&
-      this.y + this.height > mo.y &&
-      this.x < mo.x &&
-      this.y < mo.y + mo.height
+      this.x + this.width > mo.x && // Right side of this object is past left side of other object
+      this.y + this.height > mo.y && // Bottom of this object is below top of other object
+      this.x < mo.x && // Left side of this object is before right side of other object
+      this.y < mo.y + mo.height // Top of this object is above bottom of other object
     );
   }
 
   hit() {
-    this.energy -= 5;
+    this.energy -= 5; // Reduce energy by 5 on hit
     if (this.energy < 0) {
-      this.energy = 0;
+      // Ensure energy doesn't go below 0
+      this.energy = 0; // Set energy to 0 if it goes negative
     } else {
-      this.lastHit = new Date().getTime();
+      // Only update lastHit if still alive
+      this.lastHit = new Date().getTime(); // Record time of hit
     }
   }
 

@@ -36,3 +36,22 @@ canvas {
   position: relative;
   z-index: 5;
 }
+
+button {
+  padding: 15px 20px;
+  border: 2px solid #8b4513;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ffa500;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.wrapper-button {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  width: 720px;
+}
