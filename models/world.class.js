@@ -54,7 +54,12 @@ class World {
     if (this.keyboard.D) {
       let bottlePercentage = (this.collectedBottles / 5) * 100;
       if (bottlePercentage >= 20) {
-        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100); // Create new bottle
+        let offsetX = this.character.otherDirection ? -100 : 100;
+        let bottle = new ThrowableObject(
+          this.character.x + offsetX,
+          this.character.y + 100,
+          this.character.otherDirection
+        ); // Create new bottle
         this.throwableObjects.push(bottle); // Add bottle to array
 
         this.collectedBottles--;
