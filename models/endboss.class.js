@@ -54,6 +54,10 @@ class Endboss extends MovableObject {
   }
 
   update(character) {
+    if (this.isDead()) {
+      this.deadAnimation();
+      return;
+    }
     // spieler erreicht Boss-Zone
     if (character.x >= 2000 && !this.isActive) {
       this.startAnimation();
@@ -105,14 +109,17 @@ class Endboss extends MovableObject {
       this.isWalking = true;
     }, 1500);
   }
-}
 
-// TODO IMAGES HURT muss noch hinzugefuegt werden
-// Wenn bottle is Colliding Endboss
-// dann bleibt Endboss stehen und
-// dann playAnimation Hurt
-// dann wieder playanimation Alert
-// dann wieder playanimation Walk
-// intervall von 3 mal wenn bottle Endboss trifft
-// dann playAnimation Dead
-// TODO IMAGES DEAD muss noch hinzugefuegt werden
+  deadAnimation() {
+    let deadIntervall = setInterval(() => {
+      if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+      }
+    }, 200);
+
+    setTimeout(() => {
+      clearInterval(deadIntervall);
+      this.speed = 0;
+    }, 200);
+  }
+}

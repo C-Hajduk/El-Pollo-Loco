@@ -110,10 +110,18 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
+            enemy.energy -= 35;
+            if (enemy.energy < 0) {
+              enemy.energy = 0;
+            }
             this.endbossBar.setPercentage(enemy.energy);
           }
           this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
           enemy.hurtAnimation();
+
+          if (enemy.energy <= 0) {
+            enemy.deadAnimation();
+          }
         }
       });
     });
