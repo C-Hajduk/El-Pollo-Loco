@@ -8,6 +8,7 @@ class World {
   healthBar = new StatusBar('health', -10);
   bottleBar = new StatusBar('bottle', 40);
   coinBar = new StatusBar('coin', 90);
+  endbossBar = new EndbossBar('healthEndboss', 0);
   throwableObjects = [];
   collectedCoins = 0;
   collectedBottles = 0;
@@ -22,6 +23,7 @@ class World {
     this.healthBar.setPercentage(100);
     this.bottleBar.setPercentage(0);
     this.coinBar.setPercentage(0);
+    this.endbossBar.setPercentage(100);
   }
 
   setWorld() {
@@ -32,6 +34,10 @@ class World {
     setInterval(() => {
       this.checkCollisions();
     }, 200);
+
+    setInterval(() => {
+      this.collisionsBottle();
+    }, 50);
 
     setInterval(() => {
       this.checkThrowObjects();
@@ -97,9 +103,19 @@ class World {
         this.pickBottles(); // Increase collected bottles
       }
     });
-    this.throwableObjects.forEach((bottle, index) => {
-      // hier noch abfrage der gegner oder nur endboss ob er mit bottle collidiert
-      // wenn es kollidiert dann vom endboss hurtAnimation aufrufen
+  }
+
+  collisionsBottle() {
+    this.throwableObjects.forEach((bottle) => {
+      this.level.enemies.forEach((enemy) => {
+        if (bottle.isColliding(enemy)) {
+          if (enemy instanceof Endboss) {
+            this.endbossBar.setPercentage(enemy.energy);
+          }
+          this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
+          enemy.hurtAnimation();
+        }
+      });
     });
   }
 
@@ -137,6 +153,7 @@ class World {
     this.addToMap(this.healthBar);
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinBar);
+    this.addToMap(this.endbossBar);
 
     // Draw() wird immer wieder aufgerufen
     let self = this;

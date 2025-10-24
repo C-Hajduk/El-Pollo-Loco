@@ -79,7 +79,7 @@ class Endboss extends MovableObject {
     setTimeout(() => {
       clearInterval(alertIntervall);
       this.isWalking = true;
-    }, 1000);
+    }, 2000);
   }
 
   attackAnimation(character) {
@@ -95,17 +95,15 @@ class Endboss extends MovableObject {
     }
   }
 
-  hurtAnimation(bottle) {
-    if (this.isColliding(bottle)) {
-      let hurtInterval = setInterval(() => {
-        this.playAnimation(this.IMAGES_HURT);
-      }, 100);
+  hurtAnimation() {
+    let hurtInterval = setInterval(() => {
+      this.playAnimation(this.IMAGES_HURT);
+    }, 200);
 
-      setTimeout(() => {
-        clearInterval(hurtInterval);
-        this.isWalking = true;
-      }, 1000);
-    }
+    setTimeout(() => {
+      clearInterval(hurtInterval);
+      this.isWalking = true;
+    }, 1500);
   }
 }
 
@@ -117,5 +115,4 @@ class Endboss extends MovableObject {
 // dann wieder playanimation Walk
 // intervall von 3 mal wenn bottle Endboss trifft
 // dann playAnimation Dead
-
 // TODO IMAGES DEAD muss noch hinzugefuegt werden
