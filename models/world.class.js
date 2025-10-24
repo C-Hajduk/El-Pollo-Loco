@@ -39,7 +39,7 @@ class World {
 
     setInterval(() => {
       this.updateEnemies();
-    }, 1000 / 60);
+    }, 300);
   }
 
   updateEnemies() {
@@ -96,6 +96,10 @@ class World {
         this.level.bottles.splice(index, 1); // Remove bottle from level
         this.pickBottles(); // Increase collected bottles
       }
+    });
+    this.throwableObjects.forEach((bottle, index) => {
+      // hier noch abfrage der gegner oder nur endboss ob er mit bottle collidiert
+      // wenn es kollidiert dann vom endboss hurtAnimation aufrufen
     });
   }
 

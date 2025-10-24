@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
   height = 450;
   width = 300;
   y = 0;
-  speed = 2;
+  speed = 50;
 
   IMAGES_ALERT = [
     'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -63,7 +63,7 @@ class Endboss extends MovableObject {
       this.moveLeft();
       this.playAnimation(this.IMAGES_WALK);
     }
-
+    // wenn boss auf character trifft
     if (this.isColliding(character)) {
       this.attackAnimation(character);
     }
@@ -82,12 +82,6 @@ class Endboss extends MovableObject {
     }, 1000);
   }
 
-  // TODO IMAGES ATTACK muss noch hinzugefuegt werden
-  // Wenn isColliding
-  // dann playAnimation Attack
-  // Wenn isCollding false
-  // dann playAnimation Walk
-
   attackAnimation(character) {
     if (this.isColliding(character)) {
       let attackInterval = setInterval(() => {
@@ -96,6 +90,19 @@ class Endboss extends MovableObject {
 
       setTimeout(() => {
         clearInterval(attackInterval);
+        this.isWalking = true;
+      }, 1000);
+    }
+  }
+
+  hurtAnimation(bottle) {
+    if (this.isColliding(bottle)) {
+      let hurtInterval = setInterval(() => {
+        this.playAnimation(this.IMAGES_HURT);
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(hurtInterval);
         this.isWalking = true;
       }, 1000);
     }
