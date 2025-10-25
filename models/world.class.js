@@ -95,6 +95,7 @@ class World {
         this.pickCoins(); // Increase collected coins
       }
     });
+    // Check for collision with bottle
     this.level.bottles.forEach((bottle, index) => {
       // index is needed to remove bottle from array
       if (this.character.isColliding(bottle)) {
@@ -181,7 +182,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);

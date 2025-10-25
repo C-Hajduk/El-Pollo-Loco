@@ -27,10 +27,14 @@ class MovableObject extends DrawableObject {
   isColliding(mo) {
     // mo = movable object
     return (
-      this.x + this.width > mo.x && // Right side of this object is past left side of other object
-      this.y + this.height > mo.y && // Bottom of this object is below top of other object
-      this.x < mo.x && // Left side of this object is before right side of other object
-      this.y < mo.y + mo.height // Top of this object is above bottom of other object
+      this.x + this.offset.left + this.width - this.offset.right - this.offset.left >
+        mo.x + mo.offset.left && // Right side of this object is past left side of other object
+      this.y + this.offset.top + this.height - this.offset.top - this.offset.bottom >
+        mo.y + mo.offset.top && // Bottom of this object is below top of other object
+      this.x + this.offset.left <
+        mo.x + mo.offset.left + mo.width - mo.offset.left - mo.offset.right && // Left side of this object is before right side of other object
+      this.y + this.offset.top <
+        mo.y + mo.offset.top + mo.height - mo.offset.top - mo.offset.bottom // Top of this object is above bottom of other object
     );
   }
 
