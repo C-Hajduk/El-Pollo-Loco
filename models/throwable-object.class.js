@@ -1,4 +1,10 @@
 class ThrowableObject extends MovableObject {
+  offset = {
+    top: 5,
+    right: 0,
+    bottom: 10,
+    left: 0
+  };
   constructor(x, y, otherDirection) {
     super().loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
     this.x = x;
