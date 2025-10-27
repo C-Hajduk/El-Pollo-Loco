@@ -77,21 +77,27 @@ class World {
   }
 
   checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      // wenn die unterseite vom Charakter auf die Oberseite des Gegners trifft
-      // dann wird die DeadAnimation abgespielt
-      // dann wird der Gegner entfernt
+    let hitDetected = false;
+
+    this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
-        if (this.character.speedY <= 0 && this.character.y < enemy.y) {
+        // Prüfe, ob Character von oben auf Gegner springt
+        if (this.character.speedY < 0 && this.character.isAboveGround()) {
           enemy.deadAnimation();
           this.character.speedY = 15;
+          setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+          }, 500);
+        } else {
+          hitDetected = true; // Character soll Schaden nehmen
         }
-      } else {
-        this.character.hit();
-        this.healthBar.setPercentage(this.character.energy);
-        //console.log('Collision with Character, enemy', this.character.energy);
       }
     });
+
+    if (hitDetected) {
+      this.character.hit();
+      this.healthBar.setPercentage(this.character.energy);
+    }
 
     this.level.coins.forEach((coin, index) => {
       // index is needed to remove coin from array

@@ -36,4 +36,9 @@ class SmallChicken extends MovableObject {
       this.playAnimation(this.SMALL_CHICKEN_IMAGES_WALKING);
     }, 200);
   }
+  deadAnimation() {
+    setInterval(() => {
+      this.playAnimation(this.SMALL_CHICKEN_IMAGES_DEAD);
+    });
+  }
 }

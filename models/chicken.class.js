@@ -40,6 +40,6 @@ class Chicken extends MovableObject {
   deadAnimation() {
     setInterval(() => {
       this.playAnimation(this.NORMAL_CHICKEN_IMAGES_DEAD);
-    }, 60);
+    });
   }
 }
