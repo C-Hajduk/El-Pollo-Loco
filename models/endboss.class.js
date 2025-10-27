@@ -68,6 +68,7 @@ class Endboss extends MovableObject {
     // spieler erreicht Boss-Zone
     if (character.x >= 2000 && !this.isActive) {
       this.startAnimation();
+      world.endbossBar.visible = true;
     }
     // wenn Boss läuft
     if (this.isWalking) {

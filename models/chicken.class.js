@@ -1,7 +1,7 @@
 class Chicken extends MovableObject {
   y = 330;
   height = 100;
-  energy = 5;
+  energy = 0;
 
   offset = {
     top: 5,
@@ -35,5 +35,11 @@ class Chicken extends MovableObject {
     setInterval(() => {
       this.playAnimation(this.NORMAL_CHICKEN_IMAGES_WALKING);
     }, 200);
+  }
+
+  deadAnimation() {
+    setInterval(() => {
+      this.playAnimation(this.NORMAL_CHICKEN_IMAGES_DEAD);
+    }, 60);
   }
 }

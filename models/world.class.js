@@ -51,7 +51,7 @@ class World {
   updateEnemies() {
     this.level.enemies.forEach((enemy) => {
       if (enemy instanceof Endboss) {
-        enemy.update(this.character);
+        enemy.update(this.character, this);
       }
     });
   }
@@ -78,29 +78,33 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      // Check for collision with enemies
+      // wenn die unterseite vom Charakter auf die Oberseite des Gegners trifft
+      // dann wird die DeadAnimation abgespielt
+      // dann wird der Gegner entfernt
       if (this.character.isColliding(enemy)) {
-        // Check for collision with character
-        this.character.hit(); // Character gets hit
-        this.healthBar.setPercentage(this.character.energy); // Update health bar
+        if (this.character.speedY <= 0 && this.character.y < enemy.y) {
+          enemy.deadAnimation();
+          this.character.speedY = 15;
+        }
+      } else {
+        this.character.hit();
+        this.healthBar.setPercentage(this.character.energy);
         //console.log('Collision with Character, enemy', this.character.energy);
       }
     });
-    // Check for collision with coins
+
     this.level.coins.forEach((coin, index) => {
       // index is needed to remove coin from array
       if (this.character.isColliding(coin)) {
-        // Check for collision with character
-        this.level.coins.splice(index, 1); // Remove coin from level
+        this.level.coins.splice(index, 1);
         this.pickCoins(); // Increase collected coins
       }
     });
-    // Check for collision with bottle
+
     this.level.bottles.forEach((bottle, index) => {
       // index is needed to remove bottle from array
       if (this.character.isColliding(bottle)) {
-        // Check for collision with character
-        this.level.bottles.splice(index, 1); // Remove bottle from level
+        this.level.bottles.splice(index, 1);
         this.pickBottles(); // Increase collected bottles
       }
     });
@@ -162,7 +166,9 @@ class World {
     this.addToMap(this.healthBar);
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinBar);
-    this.addToMap(this.endbossBar);
+    if (this.endbossBar.visible) {
+      this.addToMap(this.endbossBar);
+    }
 
     // Draw() wird immer wieder aufgerufen
     let self = this;
