@@ -14,7 +14,6 @@ function startGame() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   startScreen.style.display = 'none';
-  setStoppableInterval(fn, ms);
 }
 
 function backToStartScreen() {
@@ -25,6 +24,7 @@ function backToStartScreen() {
 function gameOver() {
   gameOverScreen.style.display = 'block';
   clearAllIntervals();
+  canvas.style.display = 'none';
 }
 
 function restartGame() {
