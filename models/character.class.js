@@ -60,34 +60,58 @@ class Character extends MovableObject {
   }
 
   animate() {
-    setInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
-      }
-      if (this.world.keyboard.LEFT && this.x > 0) {
-        this.moveLeft();
-        this.otherDirection = true;
-      }
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-        this.jump();
-      }
-      this.world.camera_x = -this.x + 100;
-    }, 1000 / 60);
+    setStoppableInterval(() => this.characterMoving(), 1000 / 60);
+    setStoppableInterval(() => this.playAnimationCharacter(), 120);
+  }
 
-    setInterval(() => {
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-      } else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
-      } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.IMAGES_WALKING);
-        }
-      }
-    }, 120);
+  playAnimationCharacter() {
+    if (this.isHurt()) {
+      this.playAnimation(this.IMAGES_HURT);
+    } else if (this.isAboveGround()) {
+      this.playAnimation(this.IMAGES_JUMPING);
+    } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      this.playAnimation(this.IMAGES_WALKING);
+    } else if (this.characterIsSleeping()) {
+      this.playAnimation(this.IMAGES_SLEEP);
+    } else {
+      this.playAnimation(this.IMAGES_IDLE);
+    }
+  }
+
+  characterMoving() {
+    if (this.canMoveRight()) this.characterMovingRight();
+    if (this.canMoveLeft()) this.characterMovingLeft();
+    if (this.canJump()) this.jump();
+    this.world.camera_x = -this.x + 100;
+  }
+
+  isCharacterDead() {
+    if (this.isDead()) {
+      this.playAnimation(this.IMAGES_DEAD);
+      gameOver();
+    }
+  }
+
+  canMoveRight() {
+    return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+  }
+
+  characterMovingRight() {
+    this.moveRight();
+    this.otherDirection = false;
+  }
+
+  canMoveLeft() {
+    return this.world.keyboard.LEFT && this.x > 0;
+  }
+
+  characterMovingLeft() {
+    this.moveLeft();
+    this.otherDirection = true;
+  }
+
+  canJump() {
+    return this.world.keyboard.SPACE && !this.isAboveGround();
   }
 
   jump() {

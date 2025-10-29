@@ -84,7 +84,7 @@ class Endboss extends MovableObject {
   startAnimation() {
     this.isActive = true;
 
-    let alertIntervall = setInterval(() => {
+    let alertIntervall = setStoppableInterval(() => {
       this.playAnimation(this.IMAGES_ALERT);
     }, 200);
 
@@ -96,7 +96,7 @@ class Endboss extends MovableObject {
 
   attackAnimation(character) {
     if (this.isColliding(character)) {
-      let attackInterval = setInterval(() => {
+      let attackInterval = setStoppableInterval(() => {
         this.playAnimation(this.IMAGES_ATTACK);
       }, 100);
 
@@ -108,7 +108,7 @@ class Endboss extends MovableObject {
   }
 
   hurtAnimation() {
-    let hurtInterval = setInterval(() => {
+    let hurtInterval = setStoppableInterval(() => {
       this.playAnimation(this.IMAGES_HURT);
     }, 200);
 
@@ -119,7 +119,7 @@ class Endboss extends MovableObject {
   }
 
   deadAnimation() {
-    let deadIntervall = setInterval(() => {
+    let deadIntervall = setStoppableInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
       }

@@ -16,15 +16,12 @@ body {
 }
 
 h1 {
-  margin: 0;
-  padding: 30px;
+  margin: 20px;
   font-size: 4rem;
   color: #ffeb3b;
   text-shadow: 4px 4px 0px #ff5722, 8px 8px 0px #d84315, 12px 12px 0px #000000;
   letter-spacing: 4px;
   text-transform: uppercase;
-  position: relative;
-  z-index: 10;
   font-family: 'Impact', 'Arial Black', sans-serif;
   font-weight: normal;
 }
@@ -36,10 +33,69 @@ canvas {
   box-shadow: 0 0 0 3px #ffd700, 0 15px 40px rgba(0, 0, 0, 0.7);
   background: #87ceeb;
   position: relative;
-  z-index: 5;
+}
+
+.game-screen {
+  position: relative;
+  width: 720px;
+  height: 480px;
+}
+
+.start-screen {
+  background-image: url('./img/9_intro_outro_screens/start/startscreen_2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  border: 6px solid #000000;
+  border-radius: 15px;
+  position: absolute;
+  z-index: 10;
+}
+
+.start-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 20px;
+}
+
+.fullscreen-volume-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 40px;
+}
+
+.gameover-screen {
+  background-image: url('img/You won, you lost/You lost.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  border: 6px solid #000000;
+  border-radius: 15px;
+  position: absolute;
+  z-index: 10;
+  display: none;
+}
+
+.gameover-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 20px;
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 15px 20px;
   border: 2px solid #8b4513;
   border-radius: 8px;
@@ -47,13 +103,12 @@ button {
   background-color: #ffa500;
 }
 
-button:hover {
-  opacity: 0.8;
+button img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
-.wrapper-button {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 20px;
-  width: 720px;
+button:hover {
+  opacity: 0.8;
 }

@@ -1,59 +1,49 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let startScreen = document.getElementById('startScreen');
+let gameOverScreen = document.getElementById('gameoverScreen');
+let audioButton = document.getElementById('audio_button');
+let intervalIds = [];
 
 function init() {
+  SoundHub = new SoundHub();
+}
+
+function startGame() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
-  SoundHub = new SoundHub();
+  startScreen.style.display = 'none';
+  setStoppableInterval(fn, ms);
+}
+
+function backToStartScreen() {
+  startScreen.style.display = 'block';
+  gameOverScreen.style.display = 'none';
+}
+
+function gameOver() {
+  gameOverScreen.style.display = 'block';
+  clearAllIntervals();
+}
+
+function restartGame() {
+  gameOverScreen.style.display = 'none';
+  clearAllIntervals();
+  intervalIds = [];
+  startGame();
 }
 
 function toggleAudio() {
   SoundHub.toggleAudio();
 }
 
-window.addEventListener('keydown', (event) => {
-  //console.log(event);
+function setStoppableInterval(fn, ms) {
+  let id = setInterval(fn, ms);
+  intervalIds.push(id);
+}
 
-  if (event.keyCode == 39) {
-    keyboard.RIGHT = true;
-  }
-  if (event.keyCode == 37) {
-    keyboard.LEFT = true;
-  }
-  if (event.keyCode == 38) {
-    keyboard.UP = true;
-  }
-  if (event.keyCode == 40) {
-    keyboard.DOWN = true;
-  }
-  if (event.keyCode == 32) {
-    keyboard.SPACE = true;
-  }
-  if (event.keyCode == 68) {
-    keyboard.D = true;
-  }
-});
-
-window.addEventListener('keyup', (event) => {
-  //console.log(event);
-
-  if (event.keyCode == 39) {
-    keyboard.RIGHT = false;
-  }
-  if (event.keyCode == 37) {
-    keyboard.LEFT = false;
-  }
-  if (event.keyCode == 38) {
-    keyboard.UP = false;
-  }
-  if (event.keyCode == 40) {
-    keyboard.DOWN = false;
-  }
-  if (event.keyCode == 32) {
-    keyboard.SPACE = false;
-  }
-  if (event.keyCode == 68) {
-    keyboard.D = false;
-  }
-});
+function clearAllIntervals() {
+  intervalIds.forEach(clearInterval);
+  intervalIds = [];
+}

@@ -23,18 +23,37 @@
     <script src="./models/throwable-object.class.js"></script>
     <script src="./models/endboss.class.js"></script>
     <script src="./levels/level1.js"></script>
-    <script src="./scripts/game.js"></script>
   </head>
 
   <body onload="init()">
     <h1>El pollo loco</h1>
 
-    <canvas id="canvas" width="720" height="480"> </canvas>
+    <div class="game-screen">
+      <div id="startScreen" class="start-screen">
+        <div class="start-button-container">
+          <button class="start-btn" onclick="startGame()">Start</button>
+          <div class="fullscreen-volume-container">
+            <button onclick="showImpressum()">Impressum</button>
+            <button class="fullScreen-icon" onclick="fullScreen()">
+              <img
+                src="./img/9_intro_outro_screens/start/fullscreen.png"
+                alt="fullScreen"
+              />
+            </button>
+            <button id="audio_button" onclick="toggleAudio()">🔊</button>
+          </div>
+        </div>
+      </div>
 
-    <audio id="myAudio"></audio>
+      <div id="gameoverScreen" class="gameover-screen">
+        <div class="gameover-button-container">
+          <button class="restart-btn" onclick="restartGame()">Play again</button>
+          <button class="back-btn" onclick="backToStartScreen()">Leave Game</button>
+        </div>
+      </div>
 
-    <div class="wrapper-button">
-      <button id="audio_button" onclick="toggleAudio()">🔊</button>
+      <canvas id="canvas" width="720" height="480"> </canvas>
     </div>
   </body>
+  <script src="./scripts/game.js"></script>
 </html>

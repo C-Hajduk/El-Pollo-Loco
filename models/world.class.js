@@ -1,6 +1,6 @@
 class World {
   character = new Character();
-  level = level1;
+  level = createLevel1();
   canvas;
   ctx;
   keyboard;
@@ -31,21 +31,13 @@ class World {
   }
 
   run() {
-    setInterval(() => {
-      this.checkCollisions();
-    }, 200);
+    setStoppableInterval(() => this.checkCollisions(), 200);
 
-    setInterval(() => {
-      this.collisionsBottle();
-    }, 50);
+    setStoppableInterval(() => this.collisionsBottle(), 50);
 
-    setInterval(() => {
-      this.checkThrowObjects();
-    }, 150);
+    setStoppableInterval(() => this.checkThrowObjects(), 150);
 
-    setInterval(() => {
-      this.updateEnemies();
-    }, 300);
+    setStoppableInterval(() => this.updateEnemies(), 300);
   }
 
   updateEnemies() {
