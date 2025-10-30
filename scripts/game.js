@@ -3,11 +3,13 @@ let world;
 let keyboard = new Keyboard();
 let startScreen = document.getElementById('startScreen');
 let gameOverScreen = document.getElementById('gameoverScreen');
+let winScreen = document.getElementById('winScreen');
 let audioButton = document.getElementById('audio_button');
 let intervalIds = [];
+let soundHub;
 
 function init() {
-  SoundHub = new SoundHub();
+  soundHub = new SoundHub();
 }
 
 function startGame() {
@@ -19,6 +21,8 @@ function startGame() {
 function backToStartScreen() {
   startScreen.style.display = 'block';
   gameOverScreen.style.display = 'none';
+  winScreen.style.display = 'none';
+  canvas.style.display = 'block';
 }
 
 function gameOver() {
@@ -29,13 +33,28 @@ function gameOver() {
 
 function restartGame() {
   gameOverScreen.style.display = 'none';
+  winScreen.style.display = 'none';
   clearAllIntervals();
   intervalIds = [];
   startGame();
+  canvas.style.display = 'block';
+}
+
+function playerWon() {
+  winScreen.style.display = 'block';
+  clearAllIntervals();
 }
 
 function toggleAudio() {
-  SoundHub.toggleAudio();
+  soundHub.toggleAudio();
+
+  if (soundHub.isPlaying) {
+    SoundHub.backgroundAudio.loop = true;
+    SoundHub.backgroundAudio.volume = 0.2;
+    SoundHub.backgroundAudio.play();
+  } else {
+    SoundHub.pauseAll();
+  }
 }
 
 function setStoppableInterval(fn, ms) {

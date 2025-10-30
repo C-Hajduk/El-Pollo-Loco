@@ -92,10 +92,12 @@ class Character extends MovableObject {
   playAnimationCharacter() {
     if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
+      SoundHub.playOne(SoundHub.hitCharacterAudio);
     } else if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_JUMPING);
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
       this.playAnimation(this.IMAGES_WALKING);
+      SoundHub.playOne(SoundHub.runningAudio);
     } else if (this.characterIsSleeping()) {
       this.playAnimation(this.IMAGES_SLEEP);
     } else {
@@ -108,12 +110,14 @@ class Character extends MovableObject {
     if (this.canMoveRight()) this.characterMovingRight();
     if (this.canMoveLeft()) this.characterMovingLeft();
     if (this.canJump()) this.jump();
+
     this.world.camera_x = -this.x + 100;
   }
 
   isCharacterDead() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
+      SoundHub.playOne(SoundHub.deadCharacterAudio);
       gameOver();
     }
   }
@@ -142,5 +146,6 @@ class Character extends MovableObject {
 
   jump() {
     this.speedY = 25;
+    SoundHub.playOne(SoundHub.jumpAudio);
   }
 }

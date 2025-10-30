@@ -122,6 +122,7 @@ class Endboss extends MovableObject {
     let deadIntervall = setStoppableInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
+        playerWon();
       }
     }, 200);
 

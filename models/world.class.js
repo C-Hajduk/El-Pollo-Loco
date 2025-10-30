@@ -76,10 +76,11 @@ class World {
         // Prüfe, ob Character von oben auf Gegner springt
         if (this.character.speedY < 0 && this.character.isAboveGround()) {
           enemy.deadAnimation();
+          SoundHub.playOne(SoundHub.deadChickenAudio);
           this.character.speedY = 15;
           setTimeout(() => {
             this.level.enemies.splice(index, 1);
-          }, 500);
+          }, 200);
         } else {
           hitDetected = true; // Character soll Schaden nehmen
         }
@@ -96,6 +97,7 @@ class World {
       if (this.character.isColliding(coin)) {
         this.level.coins.splice(index, 1);
         this.pickCoins(); // Increase collected coins
+        SoundHub.playOne(SoundHub.coinCollectedAudio);
       }
     });
 
@@ -104,6 +106,7 @@ class World {
       if (this.character.isColliding(bottle)) {
         this.level.bottles.splice(index, 1);
         this.pickBottles(); // Increase collected bottles
+        SoundHub.playOne(SoundHub.bottleCollectedAudio);
       }
     });
   }

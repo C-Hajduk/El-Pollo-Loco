@@ -84,6 +84,20 @@ canvas {
   display: none;
 }
 
+.win-screen {
+  background-image: url('./img/You won, you lost/You won A.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  border: 6px solid #000000;
+  border-radius: 15px;
+  position: absolute;
+  z-index: 10;
+  display: none;
+}
+
 .gameover-button-container {
   display: flex;
   justify-content: center;
