@@ -7,6 +7,7 @@ let winScreen = document.getElementById('winScreen');
 let impressum = document.getElementById('impressum');
 let controls = document.getElementById('controls');
 let audioButton = document.getElementById('audio_button');
+let rotatePhone = document.getElementById('rotatePhone');
 let intervalIds = [];
 let soundHub;
 

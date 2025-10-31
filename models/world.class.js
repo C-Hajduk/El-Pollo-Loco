@@ -113,7 +113,7 @@ class World {
 
   collisionsBottle() {
     this.throwableObjects.forEach((bottle) => {
-      this.level.enemies.forEach((enemy) => {
+      this.level.enemies.forEach((enemy, index) => {
         if (bottle.isColliding(enemy)) {
           if (enemy instanceof Endboss) {
             enemy.energy -= 35;
@@ -127,6 +127,13 @@ class World {
 
           if (enemy.energy <= 0) {
             enemy.deadAnimation();
+          } else if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
+            enemy.deadAnimation();
+            SoundHub.playOne(SoundHub.deadChickenAudio);
+
+            setTimeout(() => {
+              this.level.enemies.splice(index, 1);
+            }, 200);
           }
         }
       });
