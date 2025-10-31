@@ -4,6 +4,7 @@ let keyboard = new Keyboard();
 let startScreen = document.getElementById('startScreen');
 let gameOverScreen = document.getElementById('gameoverScreen');
 let winScreen = document.getElementById('winScreen');
+let impressum = document.getElementById('impressum');
 let audioButton = document.getElementById('audio_button');
 let intervalIds = [];
 let soundHub;
@@ -23,6 +24,7 @@ function backToStartScreen() {
   gameOverScreen.style.display = 'none';
   winScreen.style.display = 'none';
   canvas.style.display = 'block';
+  SoundHub.backgroundAudio.play();
 }
 
 function gameOver() {
@@ -38,6 +40,7 @@ function restartGame() {
   intervalIds = [];
   startGame();
   canvas.style.display = 'block';
+  SoundHub.backgroundAudio.play();
 }
 
 function playerWon() {
@@ -65,4 +68,12 @@ function setStoppableInterval(fn, ms) {
 function clearAllIntervals() {
   intervalIds.forEach(clearInterval);
   intervalIds = [];
+}
+
+function showImpressum() {
+  impressum.showModal();
+}
+
+function closeImpressum() {
+  impressum.close();
 }

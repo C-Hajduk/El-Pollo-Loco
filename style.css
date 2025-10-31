@@ -126,3 +126,58 @@ button img {
 button:hover {
   opacity: 0.8;
 }
+
+.impressum {
+  position: absolute;
+  background-color: #d3843a;
+  height: 400px;
+  width: 600px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 50px;
+  border-radius: 10px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.impressum h1 {
+  color: black;
+  text-align: center;
+}
+
+/* .impressum p {
+  text-align: center;
+} */
+
+.impressum-btn {
+  font-family: 'zabras', Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  border: none;
+  background: none;
+}
+
+.impressum-btn:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.impressum-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow-back {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  right: 50px;
+  top: 10px;
+}
+
+.arrow-back:hover {
+  cursor: pointer;
+}

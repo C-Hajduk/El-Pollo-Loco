@@ -40,7 +40,9 @@
                 alt="fullScreen"
               />
             </button>
-            <button id="audio_button" onclick="toggleAudio()">🔊</button>
+            <button id="audio_button" class="audio-btn" onclick="toggleAudio()">
+              🔊
+            </button>
           </div>
         </div>
       </div>
@@ -60,6 +62,20 @@
       </div>
 
       <canvas id="canvas" width="720" height="480"> </canvas>
+
+      <dialog id="impressum" class="impressum">
+        <h1>Impressum</h1>
+        <button onclick="closeImpressum()" class="arrow-back">↩</button>
+        <section class="impressum-details">
+          <div>
+            <p>Christian Hajduk</p>
+            <p>Egypten 32</p>
+            <p>28876 Oyten</p>
+            <p>E-Mail: 0152 5 4048427</p>
+            <p>Telefon: christian.hajduk@outlook.de</p>
+          </div>
+        </section>
+      </dialog>
     </div>
   </body>
   <script src="./scripts/game.js"></script>

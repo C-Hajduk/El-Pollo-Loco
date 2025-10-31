@@ -80,6 +80,8 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
+    this.loadImages(this.IMAGES_SLEEP);
+    this.loadImages(this.IMAGES_IDLE);
     this.applyGravity();
     this.animate();
   }
@@ -102,6 +104,7 @@ class Character extends MovableObject {
       this.playAnimation(this.IMAGES_SLEEP);
     } else {
       this.playAnimation(this.IMAGES_IDLE);
+      SoundHub.runningAudio.pause();
     }
     this.isCharacterDead();
   }
@@ -114,10 +117,17 @@ class Character extends MovableObject {
     this.world.camera_x = -this.x + 100;
   }
 
+  characterIsSleeping() {
+    let timepassed = new Date().getTime() - this.lastMove;
+    timepassed = timepassed / 1000;
+    return timepassed > 10 && timepassed < 3600;
+  }
+
   isCharacterDead() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
       SoundHub.playOne(SoundHub.deadCharacterAudio);
+      SoundHub.backgroundAudio.pause();
       gameOver();
     }
   }
@@ -132,7 +142,7 @@ class Character extends MovableObject {
   }
 
   canMoveLeft() {
-    return this.world.keyboard.LEFT && this.x > 0;
+    return this.world.keyboard.LEFT && this.x > -300;
   }
 
   characterMovingLeft() {

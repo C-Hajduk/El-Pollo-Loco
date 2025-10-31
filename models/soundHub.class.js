@@ -39,6 +39,10 @@ class SoundHub {
     });
   }
 
+  static pauseOne(sound) {
+    sound.pause();
+  }
+
   toggleAudio() {
     this.isPlaying = !this.isPlaying;
     if (this.isPlaying) {
