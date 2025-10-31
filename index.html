@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="img/Favicon/kaktus.png" />
     <title>El Pollo Loco</title>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
@@ -45,6 +46,15 @@
             </button>
           </div>
         </div>
+        <div class="controls" id="controls">
+          <p>Move Left and Right</p>
+          <img class="arrow-img" src="img/controls/left-arrow.png" />
+          <img class="arrow-img" src="img/controls/right-arrow.png" />
+          <p>Jump</p>
+          <img class="space-img" src="img/controls/space.png" />
+          <p>Throw Bottle</p>
+          <p>D</p>
+        </div>
       </div>
 
       <div id="gameoverScreen" class="gameover-screen">
@@ -59,16 +69,6 @@
           <button class="restart-btn" onclick="restartGame()">Play again</button>
           <button class="back-btn" onclick="backToStartScreen()">Leave Game</button>
         </div>
-      </div>
-
-      <div class="controls" id="controls">
-        <p>Move Left and Right</p>
-        <img class="arrow-img" src="img/controls/left-arrow.png" />
-        <img class="arrow-img" src="img/controls/right-arrow.png" />
-        <p>Jump</p>
-        <img class="space-img" src="img/controls/space.png" />
-        <p>Throw Bottle</p>
-        <p>D</p>
       </div>
 
       <canvas id="canvas" width="720" height="480"></canvas>

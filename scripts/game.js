@@ -5,18 +5,21 @@ let startScreen = document.getElementById('startScreen');
 let gameOverScreen = document.getElementById('gameoverScreen');
 let winScreen = document.getElementById('winScreen');
 let impressum = document.getElementById('impressum');
+let controls = document.getElementById('controls');
 let audioButton = document.getElementById('audio_button');
 let intervalIds = [];
 let soundHub;
 
 function init() {
   soundHub = new SoundHub();
+  controls.style.display = 'flex';
 }
 
 function startGame() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   startScreen.style.display = 'none';
+  controls.style.display = 'none';
 }
 
 function backToStartScreen() {
@@ -24,7 +27,7 @@ function backToStartScreen() {
   gameOverScreen.style.display = 'none';
   winScreen.style.display = 'none';
   canvas.style.display = 'block';
-  SoundHub.backgroundAudio.play();
+  controls.style.display = 'flex';
 }
 
 function gameOver() {
@@ -40,7 +43,6 @@ function restartGame() {
   intervalIds = [];
   startGame();
   canvas.style.display = 'block';
-  SoundHub.backgroundAudio.play();
 }
 
 function playerWon() {
