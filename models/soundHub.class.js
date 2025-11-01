@@ -2,26 +2,29 @@ class SoundHub {
   isPlaying = true;
   button;
   static instance = null;
-  static coinCollectedAudio = new Audio('audio/coin-257878.mp3');
-  static bottleCollectedAudio = new Audio('audio/bottle-clink-101000.mp3');
-  static jumpAudio = new Audio('audio/pixel-jump-319167.mp3');
-  static runningAudio = new Audio('audio/running-on-sand-357373.mp3');
-  static deadChickenAudio = new Audio('audio/chicken-single-alarm-call-6056.mp3');
-  static deadCharacterAudio = new Audio('audio/dead-8bit-41400.mp3');
-  static hitCharacterAudio = new Audio('audio/young-man-being-hurt-95628.mp3');
-  static winAudio = new Audio('');
-  static backgroundAudio = new Audio(
-    'audio/JDSherbert - Nostalgia Music Pack - Treehouse Party.mp3'
-  );
+  static coinCollectedAudio = new Audio('audio/coinSound.mp3');
+  static bottleCollectedAudio = new Audio('audio/bottleSound.mp3');
+  static jumpAudio = new Audio('audio/jumpSound.mp3');
+  static runningAudio = new Audio('audio/audio/runningSound.mp3-on-sand-357373.mp3');
+  static hitEndbossAudio = new Audio('audio/hitEndbossSound.mp3');
+  static deadChickenAudio = new Audio('audio/hitChickenSound.mp3');
+  static deadCharacterAudio = new Audio('audio/LooseSound.mp3');
+  static hitCharacterAudio = new Audio('audio/hitCharacterSound.mp3');
+  static snoringAudio = new Audio('audio/snoringSound.mp3');
+  static winAudio = new Audio('audio/WinnerSound.mp3');
+  static backgroundAudio = new Audio('audio/BackgroundSound.mp3');
 
   static allSounds = [
     SoundHub.coinCollectedAudio,
     SoundHub.bottleCollectedAudio,
     SoundHub.jumpAudio,
     SoundHub.runningAudio,
+    SoundHub.hitEndbossAudio,
     SoundHub.deadChickenAudio,
     SoundHub.deadCharacterAudio,
     SoundHub.hitCharacterAudio,
+    SoundHub.snoringAudio,
+    SoundHub.winAudio,
     SoundHub.backgroundAudio
   ];
 

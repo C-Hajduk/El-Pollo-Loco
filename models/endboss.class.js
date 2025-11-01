@@ -111,6 +111,7 @@ class Endboss extends MovableObject {
     let hurtInterval = setStoppableInterval(() => {
       this.playAnimation(this.IMAGES_HURT);
     }, 200);
+    SoundHub.playOne(SoundHub.hitEndbossAudio);
 
     setTimeout(() => {
       clearInterval(hurtInterval);
@@ -123,6 +124,7 @@ class Endboss extends MovableObject {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         playerWon();
+        SoundHub.playOne(SoundHub.winAudio);
       }
     }, 200);
 

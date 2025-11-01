@@ -3,6 +3,7 @@ class Character extends MovableObject {
   height = 250;
   width = 125;
   speed = 10;
+  isSleeping = false;
 
   offset = {
     top: 100,
@@ -83,6 +84,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SLEEP);
     this.loadImages(this.IMAGES_IDLE);
     this.applyGravity();
+    this.lastMove = Date.now();
     this.animate();
   }
 
@@ -93,14 +95,18 @@ class Character extends MovableObject {
 
   playAnimationCharacter() {
     if (this.isHurt()) {
-      this.playAnimation(this.IMAGES_HURT);
       SoundHub.playOne(SoundHub.hitCharacterAudio);
+      this.playAnimation(this.IMAGES_HURT);
     } else if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_JUMPING);
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
       this.playAnimation(this.IMAGES_WALKING);
       SoundHub.playOne(SoundHub.runningAudio);
     } else if (this.characterIsSleeping()) {
+      if (!this.isSleeping) {
+        this.isSleeping = true;
+        SoundHub.playOne(SoundHub.snoringAudio);
+      }
       this.playAnimation(this.IMAGES_SLEEP);
     } else {
       this.playAnimation(this.IMAGES_IDLE);
@@ -137,8 +143,10 @@ class Character extends MovableObject {
   }
 
   characterMovingRight() {
+    this.isSleeping = false;
     this.moveRight();
     this.otherDirection = false;
+    this.lastMove = Date.now();
   }
 
   canMoveLeft() {
@@ -146,8 +154,10 @@ class Character extends MovableObject {
   }
 
   characterMovingLeft() {
+    this.isSleeping = false;
     this.moveLeft();
     this.otherDirection = true;
+    this.lastMove = Date.now();
   }
 
   canJump() {
@@ -155,7 +165,14 @@ class Character extends MovableObject {
   }
 
   jump() {
+    this.isSleeping = false;
     this.speedY = 25;
+    this.lastMove = Date.now();
     SoundHub.playOne(SoundHub.jumpAudio);
+  }
+
+  wakeUp() {
+    this.isSleeping = false;
+    this.lastMove = Date.now() + 6000;
   }
 }

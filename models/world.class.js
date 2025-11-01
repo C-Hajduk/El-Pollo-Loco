@@ -73,7 +73,6 @@ class World {
 
     this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
-        // Prüfe, ob Character von oben auf Gegner springt
         if (this.character.speedY < 0 && this.character.isAboveGround()) {
           enemy.deadAnimation();
           SoundHub.playOne(SoundHub.deadChickenAudio);
