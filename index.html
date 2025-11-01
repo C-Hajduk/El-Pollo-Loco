@@ -41,9 +41,6 @@
                 alt="fullScreen"
               />
             </button>
-            <button id="audio_button" class="audio-btn" onclick="toggleAudio()">
-              🔊
-            </button>
           </div>
         </div>
         <div class="controls" id="controls">
@@ -56,6 +53,8 @@
           <p>D</p>
         </div>
       </div>
+
+      <button id="audio_button" class="audio-btn" onclick="toggleAudio()"></button>
 
       <div id="gameoverScreen" class="gameover-screen">
         <div class="gameover-button-container">
@@ -73,10 +72,6 @@
 
       <canvas id="canvas" class="canvas" width="720" height="480"></canvas>
 
-      <div id="rotatePhone" class="rotate-phone">
-        <img class="rotate-img" src="img/ROTATE YOUR PHONE.jpg" alt="" />
-      </div>
-
       <dialog id="impressum" class="impressum">
         <h1>Impressum</h1>
         <button onclick="closeImpressum()" class="arrow-back">↩</button>
@@ -90,6 +85,9 @@
           </div>
         </section>
       </dialog>
+    </div>
+    <div id="rotatePhone" class="rotate-phone">
+      <img class="rotate-img" src="img/ROTATE YOUR PHONE.jpg" alt="" />
     </div>
   </body>
   <script src="./scripts/game.js"></script>

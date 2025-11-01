@@ -1,6 +1,7 @@
 class SoundHub {
   isPlaying = true;
   button;
+  static instance = null;
   static coinCollectedAudio = new Audio('audio/coin-257878.mp3');
   static bottleCollectedAudio = new Audio('audio/bottle-clink-101000.mp3');
   static jumpAudio = new Audio('audio/pixel-jump-319167.mp3');
@@ -8,6 +9,7 @@ class SoundHub {
   static deadChickenAudio = new Audio('audio/chicken-single-alarm-call-6056.mp3');
   static deadCharacterAudio = new Audio('audio/dead-8bit-41400.mp3');
   static hitCharacterAudio = new Audio('audio/young-man-being-hurt-95628.mp3');
+  static winAudio = new Audio('');
   static backgroundAudio = new Audio(
     'audio/JDSherbert - Nostalgia Music Pack - Treehouse Party.mp3'
   );
@@ -24,10 +26,34 @@ class SoundHub {
   ];
 
   constructor() {
+    this.loadMuteState();
+    SoundHub.instance = this;
+  }
+
+  initButton() {
     this.button = document.getElementById('audio_button');
+    this.updateButton();
+  }
+
+  loadMuteState() {
+    let savedSettings = localStorage.getItem('gameSettings');
+    if (savedSettings) {
+      let settings = JSON.parse(savedSettings);
+      this.isPlaying = settings.audioEnabled;
+    }
+  }
+
+  saveMute() {
+    let settings = {
+      audioEnabled: this.isPlaying
+    };
+    localStorage.setItem('gameSettings', JSON.stringify(settings));
   }
 
   static playOne(sound) {
+    if (SoundHub.instance && !SoundHub.instance.isPlaying) {
+      return;
+    }
     sound.volume = 0.2;
     sound.currentTime = 0;
     sound.play();
@@ -45,12 +71,19 @@ class SoundHub {
 
   toggleAudio() {
     this.isPlaying = !this.isPlaying;
-    if (this.isPlaying) {
-      this.button.style.backgroundColor = '#FFA500';
-      this.button.innerHTML = '🔊';
-    } else {
-      this.button.style.backgroundColor = '#C92A2A';
-      this.button.innerHTML = '🔇';
+    this.saveMute();
+    this.updateButton();
+  }
+
+  updateButton() {
+    if (this.button) {
+      if (this.isPlaying) {
+        this.button.style.backgroundColor = '#FFA500';
+        this.button.innerHTML = '🔊';
+      } else {
+        this.button.style.backgroundColor = '#C92A2A';
+        this.button.innerHTML = '🔇';
+      }
     }
   }
 }

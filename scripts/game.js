@@ -13,6 +13,7 @@ let soundHub;
 
 function init() {
   soundHub = new SoundHub();
+  soundHub.initButton();
   controls.style.display = 'flex';
 }
 
@@ -29,12 +30,14 @@ function backToStartScreen() {
   winScreen.style.display = 'none';
   canvas.style.display = 'block';
   controls.style.display = 'flex';
+  audioButton.style.display = 'block';
 }
 
 function gameOver() {
   gameOverScreen.style.display = 'block';
   clearAllIntervals();
   canvas.style.display = 'none';
+  audioButton.style.display = 'none';
 }
 
 function restartGame() {
@@ -44,11 +47,13 @@ function restartGame() {
   intervalIds = [];
   startGame();
   canvas.style.display = 'block';
+  audioButton.style.display = 'block';
 }
 
 function playerWon() {
   winScreen.style.display = 'block';
   clearAllIntervals();
+  audioButton.style.display = 'none';
 }
 
 function toggleAudio() {
