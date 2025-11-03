@@ -33,6 +33,7 @@ canvas {
   box-shadow: 0 0 0 3px #ffd700, 0 15px 40px rgba(0, 0, 0, 0.7);
   background: #87ceeb;
   position: relative;
+  display: block;
 }
 
 .game-screen {
@@ -268,19 +269,16 @@ dialog::backdrop {
 }
 
 /* Medium devices (tablets, 768px and up) */
-@media (max-width: 768px) {
+@media only screen and (max-width: 720px) {
+  canvas {
+    width: 100%;
+  }
 }
 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-}
-
-/* X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-}
-
-/* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {
+@media only screen and (max-height: 480px) {
+  canvas {
+    height: 100%;
+  }
 }
 
 @media (hover: none) and (orientation: landscape) {
