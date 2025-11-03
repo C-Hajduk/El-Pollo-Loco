@@ -6,6 +6,7 @@ let gameOverScreen = document.getElementById('gameoverScreen');
 let winScreen = document.getElementById('winScreen');
 let impressum = document.getElementById('impressum');
 let controls = document.getElementById('controls');
+let controlsMobile = document.getElementById('controlsMobile');
 let audioButton = document.getElementById('audio_button');
 let rotatePhone = document.getElementById('rotatePhone');
 let intervalIds = [];
@@ -14,14 +15,14 @@ let soundHub;
 function init() {
   soundHub = new SoundHub();
   soundHub.initButton();
-  controls.style.display = 'flex';
 }
 
 function startGame() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
+  keyboard.bindTouchButtons();
   startScreen.style.display = 'none';
-  controls.style.display = 'none';
+  controlsMobile.style.display = 'flex';
 }
 
 function backToStartScreen() {
@@ -29,8 +30,8 @@ function backToStartScreen() {
   gameOverScreen.style.display = 'none';
   winScreen.style.display = 'none';
   canvas.style.display = 'block';
-  controls.style.display = 'flex';
   audioButton.style.display = 'block';
+  controlsMobile.style.display = 'none';
 }
 
 function gameOver() {
@@ -54,6 +55,7 @@ function playerWon() {
   winScreen.style.display = 'block';
   clearAllIntervals();
   audioButton.style.display = 'none';
+  canvas.style.display = 'none';
 }
 
 function toggleAudio() {
