@@ -31,12 +31,9 @@ class World {
   }
 
   run() {
-    setStoppableInterval(() => this.checkCollisions(), 100);
-
+    setStoppableInterval(() => this.checkCollisions(), 150);
     setStoppableInterval(() => this.collisionsBottle(), 50);
-
     setStoppableInterval(() => this.checkThrowObjects(), 150);
-
     setStoppableInterval(() => this.updateEnemies(), 300);
   }
 
@@ -57,11 +54,9 @@ class World {
           this.character.x + offsetX,
           this.character.y + 100,
           this.character.otherDirection
-        ); // Create new bottle
-        this.throwableObjects.push(bottle); // Add bottle to array
-
+        );
+        this.throwableObjects.push(bottle);
         this.collectedBottles--;
-
         let newPercentage = (this.collectedBottles / 5) * 100;
         this.bottleBar.setPercentage(newPercentage);
       }
@@ -81,7 +76,7 @@ class World {
             this.level.enemies.splice(index, 1);
           }, 200);
         } else {
-          hitDetected = true; // Character soll Schaden nehmen
+          hitDetected = true;
         }
       }
     });
@@ -92,19 +87,17 @@ class World {
     }
 
     this.level.coins.forEach((coin, index) => {
-      // index is needed to remove coin from array
       if (this.character.isColliding(coin)) {
         this.level.coins.splice(index, 1);
-        this.pickCoins(); // Increase collected coins
+        this.pickCoins();
         SoundHub.playOne(SoundHub.coinCollectedAudio);
       }
     });
 
     this.level.bottles.forEach((bottle, index) => {
-      // index is needed to remove bottle from array
       if (this.character.isColliding(bottle)) {
         this.level.bottles.splice(index, 1);
-        this.pickBottles(); // Increase collected bottles
+        this.pickBottles();
         SoundHub.playOne(SoundHub.bottleCollectedAudio);
       }
     });
@@ -121,6 +114,7 @@ class World {
             }
             this.endbossBar.setPercentage(enemy.energy);
           }
+
           this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
           enemy.hurtAnimation();
 
@@ -129,7 +123,6 @@ class World {
           } else if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
             enemy.deadAnimation();
             SoundHub.playOne(SoundHub.deadChickenAudio);
-
             setTimeout(() => {
               this.level.enemies.splice(index, 1);
             }, 200);
@@ -140,24 +133,23 @@ class World {
   }
 
   pickCoins() {
-    // Increase collected coins
-    this.collectedCoins++; // Increase collected coins
-    let maxCoins = 5; // Total number of coins in level
-    let percentage = (this.collectedCoins / maxCoins) * 100; // Calculate percentage
-    this.coinBar.setPercentage(percentage); // Update coin bar
+    this.collectedCoins++;
+    let maxCoins = 5;
+    let percentage = (this.collectedCoins / maxCoins) * 100;
+    this.coinBar.setPercentage(percentage);
   }
 
   pickBottles() {
     this.collectedBottles++;
     let maxBottles = 5;
     let percentage = (this.collectedBottles / maxBottles) * 100;
-    this.bottleBar.setPercentage(percentage); // Update bottle bar
+    this.bottleBar.setPercentage(percentage);
   }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
     this.ctx.translate(this.camera_x, 0);
+
     this.addObjetcsToMap(this.level.backgroundObjects);
     this.addObjetcsToMap(this.level.clouds);
     this.addObjetcsToMap(this.level.enemies);
@@ -166,10 +158,10 @@ class World {
     this.addObjetcsToMap(this.level.coins);
     this.addToMap(this.character);
 
-    // ------------ Space for fixed Object ---------------
+    // Fixed Objects
     this.ctx.translate(-this.camera_x, 0);
 
-    // ---------- Statusbars (fixe Positionen) ----------
+    // Statusbars (fixed positions)
     this.addToMap(this.healthBar);
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinBar);
@@ -177,7 +169,7 @@ class World {
       this.addToMap(this.endbossBar);
     }
 
-    // Draw() wird immer wieder aufgerufen
+    // Animation loop
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
@@ -194,6 +186,7 @@ class World {
     if (mo.otherDirection) {
       this.flipImage(mo);
     }
+
     mo.draw(this.ctx);
     // mo.drawFrame(this.ctx);
 

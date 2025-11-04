@@ -5,7 +5,7 @@ class SoundHub {
   static coinCollectedAudio = new Audio('audio/coinSound.mp3');
   static bottleCollectedAudio = new Audio('audio/bottleSound.mp3');
   static jumpAudio = new Audio('audio/jumpSound.mp3');
-  static runningAudio = new Audio('audio/audio/runningSound.mp3-on-sand-357373.mp3');
+  static runningAudio = new Audio('audio/runningSound.mp3');
   static hitEndbossAudio = new Audio('audio/hitEndbossSound.mp3');
   static deadChickenAudio = new Audio('audio/hitChickenSound.mp3');
   static deadCharacterAudio = new Audio('audio/LooseSound.mp3');

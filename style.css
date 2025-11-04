@@ -33,7 +33,6 @@ canvas {
   box-shadow: 0 0 0 3px #ffd700, 0 15px 40px rgba(0, 0, 0, 0.7);
   background: #87ceeb;
   position: relative;
-  display: block;
 }
 
 .game-screen {
