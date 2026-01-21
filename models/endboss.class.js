@@ -57,10 +57,12 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.isActive = false;
     this.isWalking = false;
+    this.isHurt = false;
+    this.isAttacking = false;
     this.x = 2500;
   }
 
-  update(character) {
+  update(character, world) {
     if (this.isDead()) {
       this.deadAnimation();
       return;
@@ -70,6 +72,9 @@ class Endboss extends MovableObject {
       this.startAnimation();
       world.endbossBar.visible = true;
     }
+
+    if (this.isHurt || this.isAttacking) return;
+
     // wenn Boss läuft
     if (this.isWalking) {
       this.moveLeft();
@@ -95,28 +100,41 @@ class Endboss extends MovableObject {
   }
 
   attackAnimation(character) {
-    if (this.isColliding(character)) {
-      let attackInterval = setStoppableInterval(() => {
-        this.playAnimation(this.IMAGES_ATTACK);
-      }, 100);
+    if (this.isAttacking) return;
+    this.isAttacking = true;
+    this.isWalking = false;
 
-      setTimeout(() => {
-        clearInterval(attackInterval);
+    let attackInterval = setStoppableInterval(() => {
+      this.playAnimation(this.IMAGES_ATTACK);
+    }, 100);
+
+    setTimeout(() => {
+      clearInterval(attackInterval);
+      this.isAttacking = false;
+      if (!this.isDead()) {
         this.isWalking = true;
-      }, 1000);
-    }
+      }
+    }, 1000);
   }
 
   hurtAnimation() {
+    if (this.isHurt) return;
+    this.isHurt = true;
+    this.isWalking = false;
+
     let hurtInterval = setStoppableInterval(() => {
       this.playAnimation(this.IMAGES_HURT);
     }, 200);
-    SoundHub.playOne(SoundHub.hitEndbossAudio);
 
     setTimeout(() => {
       clearInterval(hurtInterval);
-      this.isWalking = true;
+      this.isHurt = false;
+      if (!this.isDead()) {
+        this.isWalking = true;
+      }
     }, 1500);
+
+    SoundHub.playOne(SoundHub.hitEndbossAudio);
   }
 
   deadAnimation() {

@@ -85,6 +85,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_IDLE);
     this.applyGravity();
     this.lastMove = Date.now();
+    this.hurtDuration = 0.2;
     this.animate();
   }
 
@@ -95,13 +96,11 @@ class Character extends MovableObject {
 
   playAnimationCharacter() {
     if (this.isHurt()) {
-      SoundHub.playOne(SoundHub.hitCharacterAudio);
       this.playAnimation(this.IMAGES_HURT);
     } else if (this.isAboveGround()) {
       this.playAnimation(this.IMAGES_JUMPING);
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
       this.playAnimation(this.IMAGES_WALKING);
-      SoundHub.playOne(SoundHub.runningAudio);
     } else if (this.characterIsSleeping()) {
       if (!this.isSleeping) {
         this.isSleeping = true;
@@ -110,7 +109,6 @@ class Character extends MovableObject {
       this.playAnimation(this.IMAGES_SLEEP);
     } else {
       this.playAnimation(this.IMAGES_IDLE);
-      SoundHub.runningAudio.pause();
     }
     this.isCharacterDead();
   }
@@ -119,6 +117,25 @@ class Character extends MovableObject {
     if (this.canMoveRight()) this.characterMovingRight();
     if (this.canMoveLeft()) this.characterMovingLeft();
     if (this.canJump()) this.jump();
+
+    if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      if (!this.isAboveGround() && SoundHub.instance.isPlaying) {
+        let audio = SoundHub.runningAudio;
+        if (audio.paused) {
+          audio.volume = 0.2;
+          audio.play();
+        }
+        // Tune loop: Skip start (0.1s) and end (0.5s) to avoid silence
+        if (audio.currentTime > audio.duration - 0.5) {
+          audio.currentTime = 0.1;
+          audio.play();
+        }
+      } else {
+        SoundHub.runningAudio.pause();
+      }
+    } else {
+      SoundHub.runningAudio.pause();
+    }
 
     this.world.camera_x = -this.x + 100;
   }

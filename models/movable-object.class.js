@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 2.5;
   energy = 100;
   lastHit = 0;
+  hurtDuration = 1;
 
   applyGravity() {
     setStoppableInterval(() => {
@@ -20,7 +21,7 @@ class MovableObject extends DrawableObject {
       // Throwable object should always fall
       return true;
     } else {
-      return this.y < 180;
+      return this.y < 180 || this.speedY > 0;
     }
   }
 
@@ -52,7 +53,7 @@ class MovableObject extends DrawableObject {
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
     timepassed = timepassed / 1000; // Difference in s
-    return timepassed < 1;
+    return timepassed < this.hurtDuration;
   }
 
   isDead() {

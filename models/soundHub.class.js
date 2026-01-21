@@ -31,6 +31,7 @@ class SoundHub {
   constructor() {
     this.loadMuteState();
     SoundHub.instance = this;
+    SoundHub.runningAudio.loop = true;
   }
 
   initButton() {

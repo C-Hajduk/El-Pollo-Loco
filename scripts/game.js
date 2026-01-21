@@ -22,23 +22,28 @@ function startGame() {
   world = new World(canvas, keyboard);
   keyboard.bindTouchButtons();
   startScreen.style.display = 'none';
-  controlsMobile.style.display = 'flex';
+  controlsMobile.classList.remove('d-none');
 }
 
 function backToStartScreen() {
+  soundHub.isPlaying = false;
+  soundHub.updateButton();
+  soundHub.saveMute();
   startScreen.style.display = 'block';
   gameOverScreen.style.display = 'none';
   winScreen.style.display = 'none';
   canvas.style.display = 'block';
   audioButton.style.display = 'block';
-  controlsMobile.style.display = 'none';
+  controlsMobile.classList.add('d-none');
 }
 
 function gameOver() {
+  SoundHub.runningAudio.pause();
   gameOverScreen.style.display = 'block';
   clearAllIntervals();
   canvas.style.display = 'none';
   audioButton.style.display = 'none';
+  controlsMobile.classList.add('d-none');
 }
 
 function restartGame() {
@@ -56,6 +61,8 @@ function playerWon() {
   clearAllIntervals();
   audioButton.style.display = 'none';
   canvas.style.display = 'none';
+  SoundHub.pauseAll();
+  controlsMobile.classList.add('d-none');
 }
 
 function toggleAudio() {
@@ -73,6 +80,7 @@ function toggleAudio() {
 function setStoppableInterval(fn, ms) {
   let id = setInterval(fn, ms);
   intervalIds.push(id);
+  return id;
 }
 
 function clearAllIntervals() {
