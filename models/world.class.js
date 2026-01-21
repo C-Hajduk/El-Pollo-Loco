@@ -120,39 +120,53 @@ class World {
 
   collisionsBottle() {
     this.throwableObjects.forEach((bottle) => {
-      this.level.enemies.forEach((enemy, index) => {
+      this.level.enemies.forEach((enemy) => {
         if (bottle.isColliding(enemy)) {
-          if (enemy instanceof Endboss) {
-            enemy.energy -= 35;
-            if (enemy.energy < 0) {
-              enemy.energy = 0;
-            }
-            this.endbossBar.setPercentage(enemy.energy);
-          }
-
-          this.throwableObjects.splice(this.throwableObjects.indexOf(bottle), 1);
-          if (typeof enemy.hurtAnimation === 'function') {
-            enemy.hurtAnimation();
-          }
-
-          if (enemy instanceof Endboss) {
-            if ( enemy.isDead() ) {
-              enemy.deadAnimation();
-            }
-          } else if (enemy instanceof Chicken || enemy instanceof SmallChicken) {
-            enemy.isKilled = true;
-            enemy.deadAnimation();
-            SoundHub.playOne(SoundHub.deadChickenAudio);
-            setTimeout(() => {
-              let currentIdx = this.level.enemies.indexOf(enemy);
-              if (currentIdx > -1) {
-                this.level.enemies.splice(currentIdx, 1);
-              }
-            }, 200);
-          }
+          this.handleBottleHit(bottle, enemy);
         }
       });
     });
+  }
+
+  handleBottleHit(bottle, enemy) {
+    this.removeBottle(bottle);
+    this.triggerHurtAnimation(enemy);
+    if (enemy instanceof Endboss) {
+      this.damageEndboss(enemy);
+    } else {
+      this.killChicken(enemy);
+    }
+  }
+
+  removeBottle(bottle) {
+    let index = this.throwableObjects.indexOf(bottle);
+    if (index > -1) this.throwableObjects.splice(index, 1);
+  }
+
+  triggerHurtAnimation(enemy) {
+    if (typeof enemy.hurtAnimation === 'function') {
+      enemy.hurtAnimation();
+    }
+  }
+
+  damageEndboss(enemy) {
+    enemy.energy = Math.max(enemy.energy - 35, 0);
+    this.endbossBar.setPercentage(enemy.energy);
+    if (enemy.isDead()) {
+      enemy.deadAnimation();
+    }
+  }
+
+  killChicken(enemy) {
+    enemy.isKilled = true;
+    enemy.deadAnimation();
+    SoundHub.playOne(SoundHub.deadChickenAudio);
+    setTimeout(() => {
+      let currentIdx = this.level.enemies.indexOf(enemy);
+      if (currentIdx > -1) {
+        this.level.enemies.splice(currentIdx, 1);
+      }
+    }, 200);
   }
 
   pickCoins() {
