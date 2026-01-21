@@ -60,7 +60,9 @@ class SoundHub {
     }
     sound.volume = 0.2;
     sound.currentTime = 0;
-    sound.play();
+    sound.play().catch((error) => {
+      console.log('Audio playback was prevented:', error);
+    });
   }
 
   static pauseAll() {
