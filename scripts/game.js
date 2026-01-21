@@ -71,7 +71,9 @@ function toggleAudio() {
   if (soundHub.isPlaying) {
     SoundHub.backgroundAudio.loop = true;
     SoundHub.backgroundAudio.volume = 0.2;
-    SoundHub.backgroundAudio.play();
+    SoundHub.backgroundAudio.play().catch((error) => {
+      console.log('Background audio playback was prevented:', error);
+    });
   } else {
     SoundHub.pauseAll();
   }

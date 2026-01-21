@@ -1,5 +1,5 @@
 class SoundHub {
-  isPlaying = true;
+  isPlaying = false;
   button;
   static instance = null;
   static coinCollectedAudio = new Audio('audio/coinSound.mp3');
@@ -29,7 +29,6 @@ class SoundHub {
   ];
 
   constructor() {
-    this.loadMuteState();
     SoundHub.instance = this;
     SoundHub.runningAudio.loop = true;
   }
