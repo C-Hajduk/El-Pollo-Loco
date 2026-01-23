@@ -1,3 +1,7 @@
+/**
+ * Erstellt Level 1 mit allen Spielobjekten.
+ * @returns {Level} Ein neues Level-Objekt mit allen Gegnern, Wolken, Münzen, Flaschen und Hintergründen.
+ */
 function createLevel1() {
   return new Level(
     [

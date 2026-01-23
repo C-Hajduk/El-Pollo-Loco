@@ -1,15 +1,55 @@
+/**
+ * Verwaltet Tastatureingaben und Touch-Steuerung.
+ * Erfasst welche Tasten/Buttons gerade gedrückt werden.
+ * @class
+ */
 class Keyboard {
+  /**
+   * Gibt an, ob die Rechts-Taste gedrückt ist.
+   * @type {boolean}
+   */
   RIGHT = false;
+
+  /**
+   * Gibt an, ob die Links-Taste gedrückt ist.
+   * @type {boolean}
+   */
   LEFT = false;
+
+  /**
+   * Gibt an, ob die Hoch-Taste gedrückt ist.
+   * @type {boolean}
+   */
   UP = false;
+
+  /**
+   * Gibt an, ob die Runter-Taste gedrückt ist.
+   * @type {boolean}
+   */
   DOWN = false;
+
+  /**
+   * Gibt an, ob die Leertaste gedrückt ist.
+   * @type {boolean}
+   */
   SPACE = false;
+
+  /**
+   * Gibt an, ob die D-Taste gedrückt ist.
+   * @type {boolean}
+   */
   D = false;
 
+  /**
+   * Erstellt ein neues Keyboard-Objekt und bindet die Event-Listener.
+   */
   constructor() {
     this.bindKeyboardEvents();
   }
 
+  /**
+   * Bindet die Tastatur-Event-Listener für keydown und keyup.
+   */
   bindKeyboardEvents() {
     window.addEventListener('keydown', (event) => {
       if (event.keyCode == 39) {
@@ -54,6 +94,9 @@ class Keyboard {
     });
   }
 
+  /**
+   * Bindet die Touch-Event-Listener für mobile Steuerung.
+   */
   bindTouchButtons() {
     let btnLeft = document.getElementById('moveLeft');
     let btnRight = document.getElementById('moveRight');

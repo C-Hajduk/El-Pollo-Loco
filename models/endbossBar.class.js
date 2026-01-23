@@ -1,6 +1,20 @@
+/**
+ * Statusleiste für die Gesundheitsanzeige des Endbosses.
+ * Wird erst sichtbar, wenn der Spieler die Boss-Zone erreicht.
+ * @class
+ * @extends DrawableObject
+ */
 class EndbossBar extends DrawableObject {
+  /**
+   * Gibt an, ob die Statusleiste sichtbar ist.
+   * @type {boolean}
+   */
   visible = false;
 
+  /**
+   * Bildpfade für die Endboss-Gesundheitsanzeige.
+   * @type {string[]}
+   */
   IMAGES_HEALTH = [
     'img/7_statusbars/2_statusbar_endboss/blue/blue0.png',
     'img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
@@ -9,8 +23,18 @@ class EndbossBar extends DrawableObject {
     'img/7_statusbars/2_statusbar_endboss/blue/blue80.png',
     'img/7_statusbars/2_statusbar_endboss/blue/blue100.png'
   ];
+
+  /**
+   * Aktueller Prozentwert der Statusleiste.
+   * @type {number}
+   */
   percentage;
 
+  /**
+   * Erstellt eine neue Endboss-Statusleiste.
+   * @param {string} type - Der Typ der Statusleiste ('healthEndboss').
+   * @param {number} positionY - Die Y-Position der Statusleiste.
+   */
   constructor(type, positionY) {
     super();
 
@@ -26,12 +50,20 @@ class EndbossBar extends DrawableObject {
     this.setPercentage(100);
   }
 
+  /**
+   * Setzt den Prozentwert und aktualisiert das angezeigte Bild.
+   * @param {number} percentage - Der neue Prozentwert (0-100).
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * Ermittelt den Bildindex basierend auf dem aktuellen Prozentwert.
+   * @returns {number} Der Index des anzuzeigenden Bildes (0-5).
+   */
   resolveImageIndex() {
     if (this.percentage >= 100) {
       return 5;
