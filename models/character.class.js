@@ -134,11 +134,12 @@ class Character extends MovableObject {
   }
 
   characterMoving() {
+    this.world.camera_x = -this.x + 100;
+    if (!gameReady) return;
     if (this.canMoveRight()) this.characterMovingRight();
     if (this.canMoveLeft()) this.characterMovingLeft();
     if (this.canJump()) this.jump();
     this.handleRunningSound();
-    this.world.camera_x = -this.x + 100;
   }
 
   handleRunningSound() {

@@ -12,6 +12,7 @@ class World {
   throwableObjects = [];
   collectedCoins = 0;
   collectedBottles = 0;
+  
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -19,12 +20,19 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.run();
     this.healthBar.setPercentage(100);
     this.bottleBar.setPercentage(0);
     this.coinBar.setPercentage(0);
     this.endbossBar.setPercentage(100);
+    
+    // Warte 500ms bis alles gezeichnet ist, dann starte das Spiel
+    setTimeout(() => {
+      gameReady = true;
+    }, 1000);
+    
+    this.run();
   }
+
 
   setWorld() {
     this.character.world = this;

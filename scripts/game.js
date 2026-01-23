@@ -11,6 +11,7 @@ let audioButton = document.getElementById('audio_button');
 let rotatePhone = document.getElementById('rotatePhone');
 let intervalIds = [];
 let soundHub;
+let gameReady = false;
 
 function init() {
   soundHub = new SoundHub();
@@ -18,6 +19,7 @@ function init() {
 }
 
 function startGame() {
+  gameReady = false;
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   keyboard.bindTouchButtons();
@@ -54,6 +56,7 @@ function restartGame() {
   startGame();
   canvas.style.display = 'block';
   audioButton.style.display = 'block';
+  SoundHub.playOne(SoundHub.backgroundAudio);
 }
 
 function playerWon() {
